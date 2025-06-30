@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Typing Assistant
 
-## Getting Started
+A smart writing companion that suggests text completions as you type. Built while learning modern web development patterns and AI integration.
 
-First, run the development server:
+## What it does
+
+Start typing in the text area and watch as the app suggests continuations for your thoughts. The suggestions come from Google's Gemini AI model, which analyzes your writing context and offers relevant completions.
+
+## Features
+
+- **Real-time suggestions**: Get AI-powered text completions as you write
+- **Smart debouncing**: Waits for you to pause typing before making API calls
+- **Error handling**: Shows helpful messages when things go wrong  
+- **Loading states**: Visual feedback while fetching suggestions
+- **One-click apply**: Accept suggestions with a single button press
+- **Character counter**: Keep track of your writing length
+
+## Tech stack
+
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Type safety throughout
+- **Tailwind CSS** - Utility-first styling
+- **Google Gemini AI** - Text generation via the AI SDK
+- **Lucide React** - Clean icons
+
+## Getting started
+
+First, you'll need a Google AI API key. Get one from [Google AI Studio](https://aistudio.google.com/).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Clone and install
+pnpm install
+
+# Set up your environment
+cp .env.example .env.local
+# Add your GOOGLE_GENERATIVE_AI_API_KEY to .env.local
+
+# Run the development server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) and start typing to see the magic happen.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How it works
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The typing assistant uses a debounced approach to avoid hammering the API. When you stop typing for 300ms, it sends your current text to the `/api/autocomplete` endpoint. The backend calls Google's Gemini model with a simple prompt asking for text completion.
 
-## Learn More
+The React component handles loading states, errors, and suggestion display. When you like a suggestion, click "Apply" to add it to your text.
 
-To learn more about Next.js, take a look at the following resources:
+## Learning notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project helped me explore:
+- Integrating AI APIs into web apps
+- Proper debouncing techniques for user input
+- Error boundaries and loading states in React
+- Next.js API routes and server actions
+- TypeScript patterns for props and state management
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## What's next
 
-## Deploy on Vercel
+Some ideas for improvements:
+- Multiple suggestion options
+- Different AI models to compare outputs
+- Suggestion history and favorites
+- Custom prompts and writing styles
+- Keyboard shortcuts for faster workflow
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Environment variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+GOOGLE_GENERATIVE_AI_API_KEY=your_api_key_here
+```
+
+---
+
+Built while learning modern web development. Contributions and suggestions welcome!
